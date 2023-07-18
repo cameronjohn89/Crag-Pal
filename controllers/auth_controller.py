@@ -4,6 +4,7 @@ from models.user import User
 from database import db
 
 # Create the blueprint for the auth controller
+
 auth_controller = Blueprint('auth_controller', __name__)
 
 # Route for user registration
