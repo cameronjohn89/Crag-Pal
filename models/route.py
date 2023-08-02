@@ -2,13 +2,13 @@ from database import db
 
 
 class Route(db.Model):
-    __tablename__ = 'routes'
+    __tablename__ = 'route'
 
     route_id = db.Column(db.Integer, primary_key=True)
     crag_id = db.Column(db.Integer, db.ForeignKey(
-        'crags.crag_id'), nullable=False)
+        'crag.crag_id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(
-        'users.user_id'), nullable=False)
+        'user.user_id'), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     difficulty_level = db.Column(db.String(50), nullable=False)
     route_type = db.Column(db.String(50), nullable=False)
@@ -19,7 +19,7 @@ class Route(db.Model):
     ), onupdate=db.func.current_timestamp())
 
     # Define relationships with other entities
-    user = db.relationship('User', backref=db.backref('routes'))
-    crag = db.relationship('Crag', backref=db.backref('routes'))
+    user = db.relationship('User', backref=db.backref('route'))
+    crag = db.relationship('Crag', backref=db.backref('route'))
 
     # Add any additional attributes or methods as needed

@@ -7,8 +7,9 @@ db = SQLAlchemy()
 
 def initialize_database(app):
     # Configure the database connection
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'your_database_uri_here'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://cameronjohn89:JIMbob89@localhost:5432/cameronjohn89'
+
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
     # Initialize the database with the Flask app
     db.init_app(app)
