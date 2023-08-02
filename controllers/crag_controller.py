@@ -4,14 +4,14 @@ from models.crag import Crag
 crag_controller = Blueprint('crag_controller', __name__)
 
 
-@crag_controller.route('/crags', methods=['GET'])
-def get_crags():
+@crag_controller.route('/crag', methods=['GET'])
+def get_crag():
     # Retrieve all crags from the database
-    crags = Crag.query.all()
-    return jsonify(crags)
+    crag = Crag.query.all()
+    return jsonify(crag)
 
 
-@crag_controller.route('/crags/<int:crag_id>', methods=['GET'])
+@crag_controller.route('/crag/<int:crag_id>', methods=['GET'])
 def get_crag(crag_id):
     # Retrieve a specific crag based on the provided crag_id
     crag = Crag.query.get(crag_id)
@@ -20,7 +20,7 @@ def get_crag(crag_id):
     return jsonify(crag)
 
 
-@crag_controller.route('/crags', methods=['POST'])
+@crag_controller.route('/crag', methods=['POST'])
 def create_crag():
     # Retrieve the data from the request
     data = request.get_json()
