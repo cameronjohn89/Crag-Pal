@@ -1,4 +1,3 @@
-from controllers import user_controller
 from database import initialize_database
 from flask import Flask
 import os
@@ -6,6 +5,8 @@ from init import db, ma
 from controllers.crag_controller import crag_controller
 from controllers.route_controller import route_controller
 from controllers.auth_controller import auth_controller
+from controllers.user_controller import user_controller
+
 from marshmallow.exceptions import ValidationError
 
 

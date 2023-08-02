@@ -15,7 +15,7 @@ def get_user(user_id):
     if user is None:
         return jsonify({'error': 'User not found'}), 404
 
-    return jsonify(user)
+    return jsonify(username = user.username, email = user.email, first_name = user.first_name, last_name = user.last_name)
 
 # Route for updating user profile
 
