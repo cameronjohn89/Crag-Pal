@@ -9,7 +9,6 @@ auth_controller = Blueprint('auth_controller', __name__)
 
 # Route for user registration
 
-
 @auth_controller.route('/register', methods=['POST'])
 def register():
     # Retrieve the data from the request

@@ -1,24 +1,12 @@
 from flask import Blueprint, jsonify, request
 from models.crag import Crag
+from database import db
+
+# Create the blueprint for auth controller
 
 crag_controller = Blueprint('crag_controller', __name__)
 
-
-@crag_controller.route('/crag', methods=['GET'])
-def get_crag():
-    # Retrieve all crags from the database
-    crag = Crag.query.all()
-    return jsonify(crag)
-
-
-@crag_controller.route('/crag/<int:crag_id>', methods=['GET'])
-def get_crag(crag_id):
-    # Retrieve a specific crag based on the provided crag_id
-    crag = Crag.query.get(crag_id)
-    if crag is None:
-        return jsonify({'error': 'Crag not found'}), 404
-    return jsonify(crag)
-
+# Route for creating a crag
 
 @crag_controller.route('/crag', methods=['POST'])
 def create_crag():
@@ -27,11 +15,41 @@ def create_crag():
     name = data.get('name')
     location = data.get('location')
     description = data.get('description')
+
     # Create a new Crag instance
     crag = Crag(name=name, location=location, description=description)
+
     # Save the new crag to the database
-    crag.save()
+    db.session.add(crag)
+    db.session.commit()
+
+    # Serialize the crag object to a dictionary
+    crag_data = {
+        'crag_id': crag.crag_id,  # Use crag_id instead of id
+        'name': crag.name,
+        'location': crag.location,
+        'description': crag.description
+    }
+
     # Return the created crag details as JSON
-    return jsonify(crag), 201
+    return jsonify(crag_data), 201
+
+# Retrieve crag route
+
+@crag_controller.route('/crag', methods=['GET'])
+def get_crags():
+    # Retrieve all crags from the database
+    crags = Crag.query.all()
+    return jsonify(crags)
+
+
+@crag_controller.route('/crag/<int:crag_id>', methods=['GET'])
+def get_crag_by_id(crag_id):
+    # Retrieve a specific crag based on the provided crag_id
+    crag = Crag.query.get(crag_id)
+    if crag is None:
+        return jsonify({'error': 'Crag not found'}), 404
+    return jsonify(crag)
+
 
 # Add more routes and functionalities as needed

@@ -4,10 +4,13 @@ from models.climb import Climb
 from models.user import User
 from database import db
 
+# Create the blueprint for the route controller
+
 route_controller = Blueprint('route_controller', __name__)
 
+# Route for route creation
 
-@route_controller.route('/routes', methods=['POST'])
+@route_controller.route('/route', methods=['POST'])
 def create_route():
     # Retrieve the data from the request
     data = request.get_json()
@@ -35,7 +38,7 @@ def create_route():
     return jsonify({'message': 'Route created successfully'})
 
 
-@route_controller.route('/routes/<int:route_id>', methods=['GET'])
+@route_controller.route('/route/<int:route_id>', methods=['GET'])
 def get_route(route_id):
     # Retrieve the route details based on the provided route_id
     route = Route.query.get(route_id)
@@ -45,7 +48,7 @@ def get_route(route_id):
     return jsonify(route)
 
 
-@route_controller.route('/routes/<int:route_id>/climbs', methods=['POST'])
+@route_controller.route('/route/<int:route_id>/climbs', methods=['POST'])
 def log_climb(route_id):
     # Retrieve the data from the request
     data = request.get_json()
