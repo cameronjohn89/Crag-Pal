@@ -8,7 +8,7 @@ user_controller = Blueprint('user_controller', __name__)
 # Route for retrieving user profile
 
 
-@user_controller.route('/users/<int:user_id>', methods=['GET'])
+@user_controller.route('/user/<int:user_id>', methods=['GET'])
 def get_user(user_id):
     # Retrieve the user details based on the provided user_id
     user = User.query.get(user_id)
@@ -20,7 +20,7 @@ def get_user(user_id):
 # Route for updating user profile
 
 
-@user_controller.route('/users/<int:user_id>', methods=['PUT'])
+@user_controller.route('/user/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
     # Retrieve the user details based on the provided user_id
     user = User.query.get(user_id)
@@ -66,5 +66,3 @@ def create_collection(user_id):
     collection.save()
 
     return jsonify(collection), 201
-
-# Add more routes and functionalities as needed

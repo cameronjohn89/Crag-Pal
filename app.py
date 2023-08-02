@@ -1,3 +1,4 @@
+from controllers import user_controller
 from database import initialize_database
 from flask import Flask
 import os
@@ -16,13 +17,12 @@ def create_app():
         return {'error': err.messages}, 400
     
     initialize_database(app)
- #   db.init_app(app)
 
     # Register the blueprints for the controllers
     app.register_blueprint(crag_controller)
     app.register_blueprint(route_controller)
     app.register_blueprint(auth_controller)
-#    app.register_blueprint(db_commands)
+    app.register_blueprint(user_controller)
 
     return app
 
