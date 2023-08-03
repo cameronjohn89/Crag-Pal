@@ -47,6 +47,14 @@ Performance: While PostgreSQL is generally performant, other databases like NoSQ
 No Native JSON Support: Although PostgreSQL has improved support for JSON data in recent versions, other NoSQL databases excel in handling JSON data natively.
 Ultimately, the choice of database system depends on the specific requirements and characteristics of the application. PostgreSQL is an excellent choice for many scenarios due to its reliability, robustness, and extensive feature set adn this is why I have chosen to use it for this API. Importantly to note, other databases might be better suited for specific use cases, especially when it comes to handling specific data types or performance optimization that could be included in later versions of this API.
 
+## Flask Request Handling
+
+Flask by default (how I am using it) will run on a single thread on a single process. This means it will handle my project by receiving and queuing received requests and handling one at a time. It will move onto the next request once it has completed the previous one.
+
+## Third Party Applications
+
+At the current time I do not have any third party applications. Although in future versions of the API application I could look at using third party applications or API to more adequately and quickly update the crags and climbs in my API.
+
 ## ERD
 
 ![Crag Pal - ERD Image](<Updated Crag Pal ERD.jpg>)
@@ -158,7 +166,7 @@ In summary, ORM simplifies database interactions by providing a high-level objec
 2. Navigate to the project directory: `cd crag-pal`
 3. Install the required dependencies: `pip3 install -r requirements.txt`
 4. Set up the database (PostgreSQL) and update the database configuration in `config.py`
-5. Run the application: `python app.py`
+5. Run the application: `app.py`
 6. Access the application in your browser at `http://localhost:5000`
 
 ## Usage
