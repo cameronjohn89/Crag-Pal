@@ -3,6 +3,7 @@ from models.route import Route
 from models.climb import Climb
 from models.user import User
 from models.crag import Crag
+from schemas import RouteSchema
 from database import db
 
 # Create the blueprint for the route controller
@@ -52,7 +53,12 @@ def get_route(route_id):
     if route is None:
         return jsonify({'error': 'Route not found'}), 404
 
-    return jsonify(route)
+    # Serialize the route object using the schema
+    route_schema = RouteSchema()
+    route_data = route_schema.dump(route)
+
+    # Return the serialized route data as JSON
+    return jsonify(route_data)
 
 
 @route_controller.route('/route/<int:route_id>/climbs', methods=['POST'])

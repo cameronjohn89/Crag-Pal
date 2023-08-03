@@ -353,6 +353,11 @@ If the user update fails (e.g., user_id does not exist):
 Status: 400 Bad Request
 Response: {'error': 'Failed to update user'}
 
+## Postman
+
+Please see the added postman collection for endpoint testing.
+[Crag Pal Postman Collection](../../CragPal.postman_collection.json)
+
 ## Contribution
 
 Contributions are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
