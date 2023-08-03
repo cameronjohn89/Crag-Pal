@@ -49,7 +49,7 @@ Ultimately, the choice of database system depends on the specific requirements a
 
 ## ERD
 
-![Crag Pal - ERD Image](<Updated Crag Pal ERD-1.jpg>)
+![Crag Pal - ERD Image](<Updated Crag Pal ERD.jpg>)
 
 User Entity:
 user_id (primary key)
@@ -172,18 +172,178 @@ In summary, ORM simplifies database interactions by providing a high-level objec
 
 ## API Endpoints
 
-auth_controller.login              POST     /login
-auth_controller.register           POST     /register
-crag_controller.create_crag        POST     /crag
-crag_controller.get_crag_by_id     GET      /crag/<int:crag_id>
-crag_controller.get_crags          GET      /crag
-route_controller.create_route      POST     /route
-route_controller.get_route         GET      /route/<int:route_id>
-route_controller.log_climb         POST     /route/<int:route_id>/climbs
-static                             GET      /static/<path:filename>
-user_controller.create_collection  POST     /users/<int:user_id>/collections
-user_controller.get_user           GET      /user/<int:user_id>
-user_controller.update_user        PUT      /user/<int:user_id>
+1. auth_controller.login              POST     /login
+2. auth_controller.register           POST     /register
+3. crag_controller.create_crag        POST     /crag
+4. crag_controller.get_crag_by_id     GET      /crag/<int:crag_id>
+5. crag_controller.get_crags          GET      /crag
+6. route_controller.create_route      POST     /route
+7. route_controller.get_route         GET      /route/<int:route_id>
+8. route_controller.log_climb         POST     /route/<int:route_id>/climbs
+9. static                             GET      /static/<path:filename>
+10. user_controller.create_collection  POST     /users/<int:user_id>/collections
+11. user_controller.get_user           GET      /user/<int:user_id>
+12. user_controller.update_user        PUT      /user/<int:user_id>
+
+1. auth_controller.login
+HTTP Request Verb: POST
+Endpoint: /login
+Required Data
+username: The username of the user trying to log in. (Type: String)
+password: The password of the user trying to log in. (Type: String)
+Expected Response Data
+If the login is successful:
+Status: 200 OK
+Response: {'message': 'Login successful'}
+If the login is unsuccessful (invalid username or password):
+Status: 401 Unauthorized
+Response: {'error': 'Invalid username or password'}
+
+2. auth_controller.register
+HTTP Request Verb: POST
+Endpoint: /register
+Required Data
+username: The desired username for the new user. (Type: String)
+password: The password for the new user. (Type: String)
+email: The email address of the new user. (Type: String)
+Expected Response Data
+If the registration is successful:
+Status: 201 Created
+Response: {'message': 'User registered successfully'}
+If the registration fails (e.g., username or email already exists):
+Status: 400 Bad Request
+Response: {'error': 'Username or email already exists'}
+
+3. crag_controller.create_crag
+HTTP Request Verb: POST
+Endpoint: /crag
+Required Data
+name: The name of the new crag. (Type: String)
+location: The location of the new crag. (Type: String)
+description: A description of the new crag. (Type: String)
+Expected Response Data
+If the crag creation is successful:
+Status: 201 Created
+Response: JSON object with crag details.
+If the crag creation fails:
+Status: 400 Bad Request
+Response: {'error': 'Failed to create crag'}
+
+4. crag_controller.get_crag_by_id
+HTTP Request Verb: GET
+Endpoint: /crag/<int:crag_id>
+Required Data
+crag_id: The ID of the crag to retrieve. (Type: Integer)
+Expected Response Data
+If the crag is found:
+Status: 200 OK
+Response: JSON object with crag details.
+If the crag is not found:
+Status: 404 Not Found
+Response: {'error': 'Crag not found'}
+
+5. crag_controller.get_crags
+HTTP Request Verb: GET
+Endpoint: /crag
+Expected Response Data
+Status: 200 OK
+Response: JSON array of all crags with their details.
+
+6. route_controller.create_route
+HTTP Request Verb: POST
+Endpoint: /route
+Required Data
+crag_id: The ID of the crag where the route is located. (Type: Integer)
+user_id: The ID of the user creating the route. (Type: Integer)
+name: The name of the new route. (Type: String)
+difficulty_level: The difficulty level of the new route. (Type: String)
+route_type: The type of the new route (e.g., Boulder Problem, Sport, Trad). (Type: String)
+description: A description of the new route. (Type: String)
+Expected Response Data
+If the route creation is successful:
+Status: 201 Created
+Response: {'message': 'Route created successfully'}
+If the route creation fails:
+Status: 400 Bad Request
+Response: {'error': 'Failed to create route'}
+
+7. route_controller.get_route
+HTTP Request Verb: GET
+Endpoint: /route/<int:route_id>
+Required Data
+route_id: The ID of the route to retrieve. (Type: Integer)
+Expected Response Data
+If the route is found:
+Status: 200 OK
+Response: JSON object with route details.
+If the route is not found:
+Status: 404 Not Found
+Response: {'error': 'Route not found'}
+
+8. route_controller.log_climb
+HTTP Request Verb: POST
+Endpoint: /route/<int:route_id>/climbs
+Required Data
+user_id: The ID of the user logging the climb. (Type: Integer)
+date: The date of the climb. (Type: Date)
+notes: Optional notes or comments about the climb. (Type: String)
+Expected Response Data
+If the climb is logged successfully:
+Status: 200 OK
+Response: {'message': 'Climb logged successfully'}
+If the climb logging fails:
+Status: 400 Bad Request
+Response: {'error': 'Failed to log climb'}
+
+9. static
+HTTP Request Verb: GET
+Endpoint: /static/<path:filename>
+Expected Response Data
+Status: 200 OK
+Response: The static file requested (e.g., image, CSS, JavaScript).
+
+10. user_controller.create_collection
+HTTP Request Verb: POST
+Endpoint: /users/<int:user_id>/collections
+Required Data
+user_id: The ID of the user creating the collection. (Type: Integer)
+name: The name of the new collection. (Type: String)
+description: A description of the new collection. (Type: String)
+Expected Response Data
+If the collection creation is successful:
+Status: 201 Created
+Response: JSON object with collection details.
+If the collection creation fails:
+Status: 400 Bad Request
+Response: {'error': 'Failed to create collection'}
+
+11. user_controller.get_user
+HTTP Request Verb: GET
+Endpoint: /user/<int:user_id>
+Required Data
+user_id: The ID of the user to retrieve. (Type: Integer)
+Expected Response Data
+If the user is found:
+Status: 200 OK
+Response: JSON object with user details.
+If the user is not found:
+Status: 404 Not Found
+Response: {'error': 'User not found'}
+
+12. user_controller.update_user
+HTTP Request Verb: PUT
+Endpoint: /user/<int:user_id>
+Required Data
+user_id: The ID of the user to update. (Type: Integer)
+username: The updated username for the user. (Type: String)
+email: The updated email address for the user. (Type: String)
+Expected Response Data
+If the user update is successful:
+Status: 200 OK
+Response: JSON object with updated user details.
+If the user update fails (e.g., user_id does not exist):
+Status: 400 Bad Request
+Response: {'error': 'Failed to update user'}
 
 ## Contribution
 
