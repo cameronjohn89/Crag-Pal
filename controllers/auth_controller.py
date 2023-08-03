@@ -41,7 +41,6 @@ def register():
 
 # Route for user login
 
-
 @auth_controller.route('/login', methods=['POST'])
 def login():
     # Retrieve the data from the request

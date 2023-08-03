@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from models.crag import Crag
+from schemas import CragSchema
 from database import db
 
 # Create the blueprint for auth controller
@@ -40,7 +41,12 @@ def create_crag():
 def get_crags():
     # Retrieve all crags from the database
     crags = Crag.query.all()
-    return jsonify(crags)
+# Serialize the list of crags to JSON using the CragSchema
+    crag_schema = CragSchema(many=True)
+    crags_json = crag_schema.dump(crags)
+
+    # Return the serialized crags as JSON
+    return jsonify(crags_json)
 
 
 @crag_controller.route('/crag/<int:crag_id>', methods=['GET'])
