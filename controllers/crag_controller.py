@@ -55,7 +55,13 @@ def get_crag_by_id(crag_id):
     crag = Crag.query.get(crag_id)
     if crag is None:
         return jsonify({'error': 'Crag not found'}), 404
-    return jsonify(crag)
+
+    # Serialize the crag to JSON using the CragSchema
+    crag_schema = CragSchema()
+    crag_data = crag_schema.dump(crag)
+
+    # Return the serialized crag as JSON
+    return jsonify(crag_data)
 
 
 # Add more routes and functionalities as needed
