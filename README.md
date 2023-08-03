@@ -49,6 +49,8 @@ Ultimately, the choice of database system depends on the specific requirements a
 
 ## ERD
 
+![Crag Pal - ERD Image](<Updated Crag Pal ERD-1.jpg>)
+
 User Entity:
 user_id (primary key)
 username
